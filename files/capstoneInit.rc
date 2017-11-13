@@ -1,0 +1,10 @@
+# rc file for initialization of capstone wm
+# all paths are relative to the capstone wm executable
+menuFile: ProgramMenu/testmenu.txt
+
+# color of the title bar for the window
+titleBarColor: 0x0000ff
+
+# color of the border around the window
+borderColor: 0x00ff00
+

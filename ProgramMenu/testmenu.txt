@@ -1,0 +1,6 @@
+display text 1
+command text 1
+display text 2
+command text 2
+XTerm display
+xterm
