@@ -44,7 +44,7 @@ Bool hExpose(const XExposeEvent e)
 {
     printf("Expose Event!\n");
     
-    XDrawString(d, task_win2, DefaultGC(d, DefaultScreen(d)), 5, 15, "Win 1", strlen("Win 1"));
+    //XDrawString(d, task_win2, DefaultGC(d, DefaultScreen(d)), 5, 15, "Win 1", strlen("Win 1"));
     
     return True;
 }

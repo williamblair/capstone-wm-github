@@ -17,7 +17,7 @@ unsigned long  titleBarColor = 0x000000; // color of the titleBar
 unsigned long  borderColor   = 0x000000; // color of the window border
 
 // function prototypes
-Window make_task_window(int x_pos);
+//Window make_task_window(int x_pos);
 
 Bool reparentWindow(Window child, Bool before_wm)
 {
@@ -84,29 +84,29 @@ Bool reparentWindow(Window child, Bool before_wm)
         childWinInfo.width - BUTTON_SIZE*3, // give room for the 3 buttons
         TITLE_HEIGHT,
         0,
-        0x000000,      // TODO - change this to the read in border color
-        titleBarColor       // TODO - change to frame bg color
+        borderColor, 
+        titleBarColor 
     );
     
     /* Create each button window */
     c->minWin = XCreateSimpleWindow(d,
-	                             c->frame,    // Display *parent
-	                             childWinInfo.width-(BUTTON_SIZE*3), // x coord
-	                             0,                                // y coord
-	                             BUTTON_SIZE,           // window width
-	                             BUTTON_SIZE,              // window height
-	                             0,                       // border size
-	                             WhitePixel(d, DefaultScreen(d)),    // border
-	                             0x00FF00);   // background
-	c->maxWin = XCreateSimpleWindow(d,
-	                             c->frame,    // Display *parent
-	                             childWinInfo.width-(BUTTON_SIZE*2), // x coord
-	                             0,                                // y coord
-	                             BUTTON_SIZE,           // window width
-	                             BUTTON_SIZE,              // window height
-	                             0,                       // border size
-	                             WhitePixel(d, DefaultScreen(d)),    // border
-	                             0x00FF00);   // background      
+                                 c->frame,    // Display *parent
+                                 childWinInfo.width-(BUTTON_SIZE*3), // x coord
+                                 0,                                // y coord
+                                 BUTTON_SIZE,           // window width
+                                 BUTTON_SIZE,              // window height
+                                 0,                       // border size
+                                 WhitePixel(d, DefaultScreen(d)),    // border
+                                 0x00FF00);   // background
+    c->maxWin = XCreateSimpleWindow(d,
+                                 c->frame,    // Display *parent
+                                 childWinInfo.width-(BUTTON_SIZE*2), // x coord
+                                 0,                                // y coord
+                                 BUTTON_SIZE,           // window width
+                                 BUTTON_SIZE,              // window height
+                                 0,                       // border size
+                                 WhitePixel(d, DefaultScreen(d)),    // border
+                                 0x00FF00);   // background      
     c->closeWin = XCreateSimpleWindow(d,
                                     c->frame,    // Display *parent
                                     childWinInfo.width-(BUTTON_SIZE*1), // x coord
@@ -471,7 +471,7 @@ void reparentClosePixmaps(void)
     if(closePixmap) XFreePixmap(d, closePixmap);
 }
 
-Window make_task_window(int x_pos)
+/*Window make_task_window(int x_pos)
 {
   Window send;
   XWindowAttributes   get_task_attrbs;
@@ -486,4 +486,4 @@ Window make_task_window(int x_pos)
   XMapWindow(d, send);
 
   return send;
-}
+}*/
