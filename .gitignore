@@ -1,0 +1,8 @@
+*.o
+*.o.d
+*.workspace
+*.project
+*.mk
+*.txt
+*.swp
+

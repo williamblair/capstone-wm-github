@@ -1,1 +1,0 @@
-.//buttonEvents.c.o .//configureEvents.c.o .//destroyEvents.c.o .//displayEvents.c.o .//initCapstone.c.o .//keyEvents.c.o .//main.c.o .//motionEvents.c.o .//reparent.c.o
