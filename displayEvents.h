@@ -4,7 +4,9 @@
 
 #include <stdio.h>
 
+#include "WMClient.h"
 #include "reparent.h"
+#include "taskbar.h"
 
 #ifndef DISPLAY_EVENTS_H_INCLUDED
 #define DISPLAY_EVENTS_H_INCLUDED

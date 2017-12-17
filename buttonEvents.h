@@ -2,6 +2,9 @@
 #include <stdio.h>
 
 #include "reparent.h"
+#include "WMClient.h"
+#include "taskbar.h"
+#include "redrawStrings.h"
 
 #ifndef BUTTON_EVENTS_H_INCLUDED
 #define BUTTON_EVENTS_H_INCLUDED

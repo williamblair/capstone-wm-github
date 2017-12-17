@@ -1,51 +1,12 @@
-/* For when windows are drawn to the screen */
-
-#include "displayEvents.h"
+#include "redrawStrings.h"
 
 // variables from main.c
 extern Display *d;
 extern WMClient *clientHead;
 
-Bool hCreateNotify(const XCreateWindowEvent e)
+void redrawStrings(void)
 {
-    printf("Create Notify Event!\n");
-    
-    return True;
-}
-
-Bool hReparentNotify(const XReparentEvent e)
-{
-    printf("Reparent Notify Event!\n");
-    
-    return True;
-}
-
-Bool hMapNotify(const XMapEvent e)
-{
-    printf("Map Notify Event!\n");
-    
-    return True;
-}
-
-Bool hMapRequest(const XMapRequestEvent e)
-{
-    printf("Map Request Event!\n");
-    
-    printf("Before Reparent Window!\n");
-    reparentWindow(e.window, False);
-    printf("After reparent window!\n");
-    
-    XMapWindow(d, e.window);
-    
-    return True;
-}
-
-Bool hExpose(const XExposeEvent e)
-{
-    printf("Expose Event!\n");
-    
     WMClient *c = clientHead;
-    
     while(c != NULL)
     {
         // redraw the title bar string
@@ -74,6 +35,4 @@ Bool hExpose(const XExposeEvent e)
         
         c = c->next;
     }
-    
-    return True;
 }

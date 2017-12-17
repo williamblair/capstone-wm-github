@@ -53,6 +53,7 @@ Bool resizeTaskIcons(void)
     c = clientHead;
     while(c != NULL)
     {
+        // move/resize the window
         XMoveResizeWindow(
             d, 
             c->taskIcon, 
@@ -60,6 +61,17 @@ Bool resizeTaskIcons(void)
             0, 
             taskIconWidth, 
             TASKBAR_HEIGHT
+        );
+        
+        // draw the program title
+        XDrawString(
+            d, 
+            c->taskIcon, 
+            DefaultGC(d, DefaultScreen(d)),
+            5,
+            TASKBAR_HEIGHT / 2,
+            c->title,
+            strlen(c->title)
         );
         
         x += taskIconWidth;

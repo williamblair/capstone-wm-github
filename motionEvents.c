@@ -1,5 +1,4 @@
 #include "motionEvents.h"
-#include "reparent.h"
 
 // variables from main.c
 extern Display *d;
@@ -109,7 +108,7 @@ Bool hMotionNotify(const XMotionEvent e)
     
     // redraw the title string
     
-    XWindowAttributes fAttribs; // frame attributes
+    /*XWindowAttributes fAttribs; // frame attributes
     XGetWindowAttributes(d, temp->frame, &fAttribs);
     XDrawString(
         d,
@@ -119,7 +118,9 @@ Bool hMotionNotify(const XMotionEvent e)
         (TITLE_HEIGHT / 2) + CHAR_WIDTH/2,                                      // y
         temp->title,                                           // string
         strlen(temp->title)                                    // length of string
-    );
+    );*/
+    
+    redrawStrings();
     
     return True;
 }

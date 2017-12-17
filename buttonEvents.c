@@ -1,5 +1,4 @@
 #include "buttonEvents.h"
-#include "reparent.h"
 
 // variables from main.c
 extern Display *d;
@@ -128,9 +127,9 @@ Bool hButtonPress(const XButtonEvent e)
 
     XRaiseWindow(d, temp->frame);
 
-    // redraw the title string
+    redrawStrings();
 
-    XWindowAttributes fAttribs; // frame attributes
+    /*XWindowAttributes fAttribs; // frame attributes
     XGetWindowAttributes(d, temp->frame, &fAttribs);
     XDrawString(
         d,
@@ -140,7 +139,7 @@ Bool hButtonPress(const XButtonEvent e)
         (TITLE_HEIGHT / 2) + CHAR_WIDTH/2,                                      // y
         temp->title,                                           // string
         strlen(temp->title)                                    // length of string
-    );
+    );*/
 
     return True;
 }
