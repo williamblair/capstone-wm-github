@@ -6,5 +6,5 @@ menuFile: ProgramMenu/testmenu.txt
 titleBarColor: 0x0000ff
 
 # color of the border around the window
-borderColor: 0x00ff00
+borderColor: 0xff00ff
 

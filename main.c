@@ -2,6 +2,7 @@
 #include <X11/Xlib.h>
 
 #include <stdio.h>
+#include <time.h>
 
 #include "reparent.h"
 #include "displayEvents.h"
@@ -21,10 +22,6 @@
 Display *d; // connection to the X display
 WMClient *clientHead; // the head of the WMClient linked list
 
-//GC                  gc_taskbar;
-//Window              task_bar; //X11 window for taskbar
-//Window              task_win2;
-
 /***************************************/
 /**        FUNCTION PROTOTYPES        **/
 /***************************************/
@@ -32,10 +29,6 @@ int errorHandler(Display *d, XErrorEvent *e);
 Bool initX(void);
 Bool reparentExistingWindows(void);
 Bool mainLoop(void);
-
-/* Taskbar prototypes */
-//Window start_taskbar(Window pass);
-//Window start_window(Window pass, Window task_bar, int x_pos, unsigned long color);
 
 int main(int argc, char **argv)
 {
@@ -57,6 +50,8 @@ int main(int argc, char **argv)
     // init X
     if(!initX()) return -1;
     
+    srand(time(0));
+    
     // load pixmaps for the window borders
     reparentLoadPixmaps("files/minimize.xpm",
                         "files/maximize.xpm",
@@ -69,23 +64,6 @@ int main(int argc, char **argv)
     
     // defined in taskbar.c
     createTaskbar();
-                        
-    /* Create the task bar */
-    /*task_bar = start_taskbar(task_bar);
-    Window task_win = None;
-    task_win = start_window(task_win, task_bar, 1, 0x4286f4);
-    //Window task_win2 = start_window(task_win, task_bar, 50, 0x0abcde);
-    task_win2 = start_window(task_win, task_bar, 50, 0x0abcde);
-    XDrawString(d, task_win2, DefaultGC(d, DefaultScreen(d)), 0, 0, "Win 1", strlen("Win 1"));*/
-    
-    //Drawing a rectangle to the taskbar for testing purposes
-    /*GC window_min = DefaultGC(d, DefaultScreen(d));
-    XGCValues send_vals;
-    send_vals.fill_rule=FillSolid;
-    send_vals.foreground=1;
-    XChangeGC(d, window_min, GCForeground, &send_vals);
-    XFillRectangle(d, task_bar, window_min, 25, 5, 20, 20);
-    XSelectInput(d, task_bar, 0);*/
     
     // check for and handle events
     mainLoop();
@@ -201,29 +179,3 @@ Bool mainLoop(void)
     
     return True;
 }
-
-/*Window start_taskbar(Window pass)
-{
-    pass=XCreateSimpleWindow(d, DefaultRootWindow(d),0,(HeightOfScreen(DefaultScreenOfDisplay(d))-25),(WidthOfScreen(DefaultScreenOfDisplay(d))),25, 0, BlackPixel(d,DefaultScreen(d)), WhitePixel(d, DefaultScreen(d)));
-    XSelectInput(d, pass, ExposureMask|ButtonPressMask|KeyPressMask);
-    gc_taskbar=XCreateGC(d, pass, 0,0);
-    XSetBackground(d, gc_taskbar, WhitePixel(d, DefaultScreen(d)));
-    XSetForeground(d, gc_taskbar, BlackPixel(d, DefaultScreen(d)));
-    XClearWindow(d, pass);
-    XMapRaised(d, pass);
-
-    return pass;
-}
-
-Window start_window(Window pass, Window task_bar, int x_pos, unsigned long color)
-{
-    XWindowAttributes get_task_attrbs;
-    XGetWindowAttributes(d, task_bar, &get_task_attrbs);
-    unsigned task_win_h = ((get_task_attrbs.height*3)/4);
-    printf("\nHeight of taskbar %u\n", task_win_h);
-    pass = XCreateSimpleWindow(d, task_bar, x_pos, ((get_task_attrbs.height)/4), 40, task_win_h, 0, 0, color);
-    XMapWindow(d, pass);
-
-    return pass;
-}
-*/

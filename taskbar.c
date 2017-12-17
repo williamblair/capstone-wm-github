@@ -26,3 +26,46 @@ Bool createTaskbar(void)
     
     return True;
 }
+
+Bool resizeTaskIcons(void)
+{
+    int numClients = 0;    // the total number of WMClients
+    int taskIconWidth = 0; // the width of 1 taskbar window
+    int x = 0;             // the x position of the current client icon
+    
+    WMClient *c = clientHead;
+    if(!c) {
+        fprintf(stderr, "resizeTaskIcons: clientHead NULL!\n");
+        return False;
+    }
+    
+    // Get the total number of clients
+    while(c != NULL)
+    {
+        numClients++;
+        c = c->next;
+    }
+    
+    // calculate the width of each taskIcon window
+    taskIconWidth = WidthOfScreen(DefaultScreenOfDisplay(d)) / numClients;
+    
+    // resize and move each client icon
+    c = clientHead;
+    while(c != NULL)
+    {
+        XMoveResizeWindow(
+            d, 
+            c->taskIcon, 
+            x, 
+            0, 
+            taskIconWidth, 
+            TASKBAR_HEIGHT
+        );
+        
+        x += taskIconWidth;
+        
+        c = c->next;
+    }
+    
+    return True;
+}

@@ -7,6 +7,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "WMClient.h"
+
 #ifndef REPARENT_H_INCLUDED
 #define REPARENT_H_INCLUDED
 
@@ -16,30 +18,6 @@
 #define CHAR_WIDTH 4 // the estimated width of a font character
 
 #define BUTTON_SIZE  TITLE_HEIGHT // the width and height of max/min/close buttons
-
-// groups frame windows and the actual app windows
-typedef struct WMClient
-{
-    Window frame;    // the border/container window
-    Window titleBar; // the title bar to click/drag
-    Window minWin; // minimize, maximize, and close subwindows
-    Window maxWin;
-    Window closeWin;
-    Window child;  // the actual application content window
-    Window task_icon;
-
-    unsigned int x; // the x and y position before maximizing the window
-    unsigned int y;
-    unsigned int w; // the width and height before maximizing the window
-    unsigned int h;
-    
-    Bool maximized; // true if the window is fullscreen
-    Bool minimized; // true if the window is minimized
-    
-    char title[50]; // title of the window
-
-    struct WMClient *next;
-} WMClient;
 
 Bool reparentWindow(Window child, Bool before_wm);
 Bool unparentWindow(Window child);

@@ -1,5 +1,6 @@
 #include "destroyEvents.h"
 #include "reparent.h"
+#include "taskbar.h"
 
 // variables from main.c
 extern Display *d;
@@ -8,6 +9,8 @@ extern WMClient *clientHead;
 Bool hDestroyNotify(const XDestroyWindowEvent e)
 {
     printf("Destroy Notify Event!\n");
+    
+    resizeTaskIcons();
     
     return True;
 }

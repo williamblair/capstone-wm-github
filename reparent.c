@@ -1,11 +1,15 @@
 /* reframes given windows */
 
 #include "reparent.h"
+#include "taskbar.h"
 
 // variables from main.c
 extern Display *d;
 extern WMClient *clientHead; // the head of the WMClient linked list
-extern Window   task_bar; //task bar window for reparenting
+//extern Window   task_bar; //task bar window for reparenting
+
+// variables from taskbar.c
+extern Window taskbar;
 
 // global variables
 Pixmap minPixmap; // minimize image
@@ -117,7 +121,19 @@ Bool reparentWindow(Window child, Bool before_wm)
                                     WhitePixel(d, DefaultScreen(d)),    // border
                                     0x00FF00);   // background        
     
-    c->task_icon = None;//XCreateSimpleWindow(d, task_bar, 21, ((get_task_attrbs.height)/4), 20, task_win_h, 0, 0, 0xf46e42);                                
+    //c->taskIcon = None;//XCreateSimpleWindow(d, task_bar, 21, ((get_task_attrbs.height)/4), 20, task_win_h, 0, 0, 0xf46e42);                                
+    c->taskIcon = XCreateSimpleWindow(
+        d,
+        taskbar,
+        0, 0,
+        50, 50,
+        1,
+        //BlackPixel(d, DefaultScreen(d)),
+        //WhitePixel(d, DefaultScreen(d))
+        rand() % 0xFFFFFF,
+        rand() % 0xFFFFFF
+    );
+    XMapWindow(d, c->taskIcon);
     
     /* give each button window their image */
     XSetWindowBackgroundPixmap(d, c->minWin, minPixmap);
@@ -288,6 +304,9 @@ Bool reparentWindow(Window child, Bool before_wm)
     XMapWindow(d, c->frame);
     XMapSubwindows(d, c->frame);
     
+    // re organize the taskbar icon windows
+    resizeTaskIcons();
+    
     return True;
 }
 
@@ -354,6 +373,12 @@ Bool deleteClient(Window child)
         printf("Before destroy frame!\n");
         XDestroyWindow(d, temp->frame);
         printf("After destroy frame!\n");
+        
+        // destroy the window in the taskbar
+        XDestroyWindow(d, temp->taskIcon);
+    
+        // re organize the taskbar windows
+        resizeTaskIcons();
     
         /* reconnect the previous and after
          * WMclients in the list */
