@@ -20,6 +20,9 @@ int startWinY = 0;
 int startWinWidth = 0;
 int startWinHeight = 0;
 
+// function just for our purposes here to unminimze a window
+Bool hRemap(const XButtonEvent e, WMClient *c);
+
 Bool hButtonPress(const XButtonEvent e)
 {
     printf("Button Press Event!\n");
@@ -81,6 +84,7 @@ Bool hButtonPress(const XButtonEvent e)
            temp->titleBar == e.window ||
            temp->minWin   == e.window ||
            temp->maxWin   == e.window ||
+           temp->taskIcon == e.window ||
            temp->closeWin == e.window) break;
         temp = temp->next;
     }
@@ -103,6 +107,12 @@ Bool hButtonPress(const XButtonEvent e)
     else if(e.window == temp->closeWin)
     {
         hClose(e, temp);
+        return True;
+    }
+    else if(e.window == temp->taskIcon)
+    {
+        hRemap(e, temp);
+        redrawStrings();
         return True;
     }
 
@@ -325,6 +335,22 @@ Bool hClose(const XButtonEvent e, WMClient *c)
             
             XSendEvent(d, c->child, False, 0, &msg);
         }
+    
+    return True;
+}
+
+Bool hRemap(const XButtonEvent e, WMClient *c)
+{
+    printf("Remap Window Event on window: %s\n", c->title);
+    
+    // reset the minimized boolean
+    c->minimized = False;
+    
+    // remap the frame
+    XMapRaised(d, c->frame);
+    
+    // remap all of the windows
+    XMapSubwindows(d, c->frame);
     
     return True;
 }

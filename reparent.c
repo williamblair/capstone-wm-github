@@ -134,6 +134,23 @@ Bool reparentWindow(Window child, Bool before_wm)
         rand() % 0xFFFFFF,
         rand() % 0xFFFFFF
     );
+    
+    // select input on the task icon
+    // Grab left mouse click on the title bar
+    XGrabButton(
+        d,
+        Button1,
+        //Mod1Mask,
+        None,
+        c->taskIcon,
+        False,
+        ButtonPressMask | ButtonReleaseMask | ButtonMotionMask,
+        GrabModeAsync,
+        GrabModeAsync,
+        None,
+        None
+    );
+    
     XMapWindow(d, c->taskIcon);
     
     /* give each button window their image */
