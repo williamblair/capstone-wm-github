@@ -8,6 +8,9 @@ extern WMClient *clientHead; // the head of the WMClient linked list
 // Global Variables
 Window taskbar;
 
+// color of the font on the taskbar
+unsigned long taskbarFontColor = 0x000000;
+
 Bool createTaskbar(void)
 {
     taskbar = XCreateSimpleWindow(
@@ -62,6 +65,9 @@ Bool resizeTaskIcons(void)
             taskIconWidth, 
             TASKBAR_HEIGHT
         );
+        
+        // set the color of the font
+        XSetForeground(d, DefaultGC(d, DefaultScreen(d)), taskbarFontColor);
         
         // draw the program title
         XDrawString(

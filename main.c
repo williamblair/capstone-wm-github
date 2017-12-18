@@ -13,8 +13,8 @@
 #include "keyEvents.h"
 #include "motionEvents.h"
 #include "initCapstone.h"
-
 #include "taskbar.h"
+#include "redrawStrings.h"
 
 /***************************************/
 /**         GLOBAL VARIABLES          **/
@@ -64,6 +64,9 @@ int main(int argc, char **argv)
     
     // defined in taskbar.c
     createTaskbar();
+    
+    // draw all title strings
+    redrawStrings();
     
     // check for and handle events
     mainLoop();

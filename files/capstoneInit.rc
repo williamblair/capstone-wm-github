@@ -8,3 +8,8 @@ titleBarColor: 0x0000ff
 # color of the border around the window
 borderColor: 0xff00ff
 
+# color of the font on the title bars
+titleFontColor: 0xffffff
+
+# color of the font on the task bar
+taskbarFontColor: 0xff0000

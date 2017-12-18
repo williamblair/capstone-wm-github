@@ -17,8 +17,9 @@ Pixmap maxPixmap; // maximize image
 Pixmap unmaxPixmap; // unmaximize image
 Pixmap closePixmap; // close window image
 
-unsigned long  titleBarColor = 0x000000; // color of the titleBar
-unsigned long  borderColor   = 0x000000; // color of the window border
+unsigned long  titleBarColor  = 0x000000; // color of the titleBar
+unsigned long  borderColor    = 0x000000; // color of the window border
+unsigned long  titleFontColor = 0x000000; // color of the title bar font
 
 // function prototypes
 //Window make_task_window(int x_pos);
@@ -288,6 +289,10 @@ Bool reparentWindow(Window child, Bool before_wm)
     
     //XWindowAttributes fAttribs; // frame attributes
     //XGetWindowAttributes(d, temp->frame, &fAttribs);
+    
+    // testing font color
+    XSetForeground(d, DefaultGC(d, DefaultScreen(d)), titleFontColor);
+    
     XDrawString(
         d,
         c->titleBar,                                        // Drawable d

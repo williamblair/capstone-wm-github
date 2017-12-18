@@ -5,6 +5,10 @@
 /* Defined in reparent.c */
 extern unsigned long titleBarColor;
 extern unsigned long borderColor;
+extern unsigned long titleFontColor;
+
+/* defined in taskbar.c */
+extern unsigned long taskbarFontColor;
 
 /* Defined in main.c */
 extern char          *menuFilePath;
@@ -66,6 +70,22 @@ Bool parseRC(const char *fname)
                 char *dummy = NULL;
                 sscanf(currentLine, "%ms %lx", &dummy, &borderColor);
                 printf("borderColor Color: 0x%lX\n", borderColor);
+            }
+            
+            /* title font color */
+            else if(strcmp(currentSetting, "titleFontColor:") == 0)
+            {
+                char *dummy = NULL;
+                sscanf(currentLine, "%ms %lx", &dummy, &titleFontColor);
+                printf("Title font Color: 0x%lX\n", titleFontColor);
+            }
+            
+            /* taskbar font color */
+            else if(strcmp(currentSetting, "taskbarFontColor:") == 0)
+            {
+                char *dummy = NULL;
+                sscanf(currentLine, "%ms %lx", &dummy, &taskbarFontColor);
+                printf("Taskbar font Color: 0x%lX\n", taskbarFontColor);
             }
         }
     }
